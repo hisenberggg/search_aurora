@@ -1,9 +1,13 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import requests
+import time
 from typing import List, Dict, Any
 from search_approaches.term_frequency_token import search as search_term_frequency_token
+from search_approaches.sentence_embedding import search as search_sentence_embedding
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # In-memory storage for messages
 messages_data: List[Dict[str, Any]] = []
@@ -94,19 +98,28 @@ def search():
     if per_page < 1 or per_page > 100:
         per_page = 10
     
+    # Measure backend processing time
+    start_time = time.time()
+    
     # Route to appropriate search approach
     if approach == 'term_frequency_token':
         results = search_term_frequency_token(messages_data, query, page, per_page)
+    elif approach == 'sentence_embedding':
+        results = search_sentence_embedding(messages_data, query, page, per_page)
     else:
         return jsonify({
             'status': 'error',
-            'message': f'Unknown approach: {approach}. Available approaches: term_frequency_token'
+            'message': f'Unknown approach: {approach}. Available approaches: term_frequency_token, sentence_embedding'
         }), 400
+    
+    # Calculate processing time in milliseconds
+    processing_time_ms = int((time.time() - start_time) * 1000)
     
     return jsonify({
         'status': 'success',
         'query': query,
         'approach': approach,
+        'processing_time_ms': processing_time_ms,
         **results
     }), 200
 
