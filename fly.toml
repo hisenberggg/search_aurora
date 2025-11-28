@@ -1,0 +1,27 @@
+# fly.toml app configuration file for GitHub deployment
+# This file is at the root to work with Fly.io GitHub integration
+# It points to the backend directory for the actual application
+
+app = "search-aurora-backend"
+primary_region = "iad"
+
+[build]
+  dockerfile = "backend/Dockerfile"
+  build_context = "backend"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 1024
+
