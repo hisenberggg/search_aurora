@@ -147,6 +147,8 @@ export default function SearchResults({ results, onPageChange, queryTime }: Sear
 
           {Array.from({ length: results.total_pages }, (_, i) => i + 1)
             .filter(page => {
+              // Show first page, last page, current page, and pages around current
+              // On mobile (via CSS), we'll hide some pages
               return (
                 page === 1 ||
                 page === results.total_pages ||
@@ -155,6 +157,7 @@ export default function SearchResults({ results, onPageChange, queryTime }: Sear
               )
             })
             .map((page, index, array) => {
+              // Add ellipsis if there's a gap
               const showEllipsisBefore = index > 0 && array[index - 1] < page - 1
               const isFirst = page === 1
               const isLast = page === results.total_pages
