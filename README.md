@@ -1,9 +1,11 @@
 # Search Aurora - Local Setup
 
-A simple search engine with multiple search approaches. This branch is configured for local development.
+A simple search engine with multiple search approaches.
 
-> **⚠️ Important:** Before setting up, switch to the `local-setup` branch:
+> **⚠️ Important:** Clone the repository and switch to the `local-setup` branch:
 > ```bash
+> git clone https://github.com/hisenberggg/search_aurora.git
+> cd search_aurora
 > git checkout local-setup
 > ```
 
