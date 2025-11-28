@@ -37,15 +37,63 @@ npm run dev
 The frontend will run on `http://localhost:3000`
 
 ### Environment Variables
+
+**For Local Development:**
 Create a `.env.local` file:
 ```
 NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+**For Production (Vercel):**
+The frontend will automatically use `https://search-aurora-backend.fly.dev` if no environment variable is set, or you can set:
+```
+NEXT_PUBLIC_API_URL=https://search-aurora-backend.fly.dev
 ```
 
 ### Build for Production
 ```bash
 npm run build
 npm start
+```
+
+## Deployment
+
+### Deploy Frontend to Vercel
+
+1. **Push code to GitHub** (if not already done):
+   ```bash
+   git add .
+   git commit -m "Ready for Vercel deployment"
+   git push origin main
+   ```
+
+2. **Go to [vercel.com](https://vercel.com)** and sign in with GitHub
+
+3. **Import your repository**:
+   - Click "New Project"
+   - Select your GitHub repository (`search_aurora`)
+   - Vercel will auto-detect Next.js
+
+4. **Configure Environment Variables** (optional):
+   - Go to Project Settings → Environment Variables
+   - Add: `NEXT_PUBLIC_API_URL` = `https://search-aurora-backend.fly.dev`
+   - **Note**: If not set, it will automatically use the Fly.io backend URL
+
+5. **Deploy**:
+   - Click "Deploy"
+   - Vercel will build and deploy automatically
+   - Your site will be live at `https://your-project.vercel.app`
+
+6. **Your app is live!** 🎉
+
+The frontend will automatically connect to your Fly.io backend at `https://search-aurora-backend.fly.dev`.
+
+### Deploy Backend to Fly.io
+
+See backend deployment instructions in `backend/` directory or run:
+```bash
+cd backend
+fly deploy
 ```
 
 ## Search Approaches

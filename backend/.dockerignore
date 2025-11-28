@@ -1,22 +1,18 @@
-# Frontend files (relative to backend directory, these are in parent)
-../app/
-../components/
-../node_modules/
-../.next/
-../out/
-../package.json
-../package-lock.json
-../tsconfig.json
-../next.config.js
-../next-env.d.ts
-../vercel.json
+# Exclude everything from parent directory (frontend files)
+../*
 
-# Python
+# But keep backend files (this directory)
+!.
+!*
+
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+
+# Virtual environments
 env/
 venv/
 ENV/
@@ -35,10 +31,4 @@ Thumbs.db
 # Git
 .git/
 .gitignore
-
-# Test files
-../test.py
-
-# Documentation
-../README.md
 

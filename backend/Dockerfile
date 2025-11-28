@@ -23,5 +23,6 @@ COPY search_approaches ./search_approaches
 EXPOSE 8080
 
 # Use gunicorn to run the Flask app
-CMD gunicorn app:app --bind 0.0.0.0:${PORT:-8080} --workers 2 --timeout 120
+# Using 1 worker to ensure shared in-memory state (messages_data)
+CMD gunicorn app:app --bind 0.0.0.0:${PORT:-8080} --workers 1 --timeout 120 --preload
 

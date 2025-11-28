@@ -124,6 +124,16 @@ def search():
     }), 200
 
 
+# Load data on startup (runs when module is imported, before workers fork)
+# This works with gunicorn --preload flag
+print("Initializing app... Loading data on startup...")
+result, success = load_data_from_api()
+if success:
+    print(f"✓ Successfully loaded {len(messages_data)} messages on startup")
+else:
+    print(f"✗ Failed to load data on startup: {result}")
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 

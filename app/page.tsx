@@ -24,7 +24,18 @@ interface SearchResponse {
   processing_time_ms?: number
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
+// Use environment variable for API URL
+// For local development: Set NEXT_PUBLIC_API_URL=http://localhost:5000 in .env.local
+// For production (Vercel): Set NEXT_PUBLIC_API_URL=https://search-aurora-backend.fly.dev or it defaults to Fly.io
+const getApiUrl = () => {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL
+  }
+  // Default to Fly.io backend for production
+  return 'https://search-aurora-backend.fly.dev'
+}
+
+const API_BASE_URL = getApiUrl()
 
 export default function Home() {
   const [query, setQuery] = useState('')
@@ -48,7 +59,7 @@ export default function Home() {
           throw new Error(errorData.message || `HTTP ${response.status}: Failed to load data`)
         }
       } catch (err: any) {
-        const errorMessage = err.message || 'Failed to load data. Make sure the backend is running on http://localhost:5000'
+        const errorMessage = err.message || 'Failed to load data. Please check if the backend is running.'
         setError(errorMessage)
         console.error('Error loading data:', err)
       } finally {
@@ -87,7 +98,7 @@ export default function Home() {
       setQueryTime(executionTime)
       setError(null)
     } catch (err: any) {
-      const errorMessage = err.message || 'Failed to search. Make sure the backend is running on http://localhost:5000'
+      const errorMessage = err.message || 'Failed to search. Please check if the backend is running.'
       setError(errorMessage)
       setResults(null)
       setQueryTime(null)
