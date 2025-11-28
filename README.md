@@ -2,7 +2,7 @@
 
 A simple search engine with multiple search approaches.
 
-
+> **⚠️ Important Note:** If you are accessing the deployed frontend at [https://search-aurora.vercel.app/](https://search-aurora.vercel.app/), you need to run the backend server separately on your localhost. The deployed frontend will try to connect to `http://localhost:5000` by default, so make sure the backend is running locally before using the Vercel URL.
 
 ## Prerequisites
 
