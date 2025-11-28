@@ -1,6 +1,16 @@
-# Search Aurora
+# Search Aurora - Local Setup
 
-A simple search engine with multiple search approaches.
+A simple search engine with multiple search approaches. This branch is configured for local development.
+
+> **⚠️ Important:** Before setting up, switch to the `local-setup` branch:
+> ```bash
+> git checkout local-setup
+> ```
+
+## Prerequisites
+
+- Python 3.12+ installed
+- Node.js 18+ and npm installed
 
 ## Backend (Flask)
 
@@ -18,8 +28,10 @@ python app.py
 
 The backend will run on `http://localhost:5000`
 
+**Note:** The backend automatically loads data on startup, so you don't need to call `/load_data` manually.
+
 ### Endpoints
-- `GET /load_data` - Load messages from external API
+- `GET /load_data` - Load messages from external API (optional, data loads automatically on startup)
 - `GET /search?q=<query>&approach=<approach>&page=<page>&per_page=<per_page>` - Search messages
 
 ## Frontend (Next.js)
@@ -36,68 +48,44 @@ npm run dev
 
 The frontend will run on `http://localhost:3000`
 
-### Environment Variables
+### Environment Variables (Optional)
 
-**For Local Development:**
-Create a `.env.local` file:
+Create a `.env.local` file if you want to customize the backend URL:
 ```
 NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
 
-**For Production (Vercel):**
-The frontend will automatically use `https://search-aurora-backend.fly.dev` if no environment variable is set, or you can set:
-```
-NEXT_PUBLIC_API_URL=https://search-aurora-backend.fly.dev
-```
+**Note:** The frontend defaults to `http://localhost:5000` if no environment variable is set.
 
-### Build for Production
-```bash
-npm run build
-npm start
-```
+## Local Development Workflow
 
-## Deployment
-
-### Deploy Frontend to Vercel
-
-1. **Push code to GitHub** (if not already done):
+1. **Start the backend:**
    ```bash
-   git add .
-   git commit -m "Ready for Vercel deployment"
-   git push origin main
+   cd backend
+   python app.py
+   ```
+   Wait for the message "Successfully loaded X messages on startup"
+
+2. **Start the frontend** (in a new terminal):
+   ```bash
+   npm run dev
    ```
 
-2. **Go to [vercel.com](https://vercel.com)** and sign in with GitHub
+3. **Open your browser:**
+   Navigate to `http://localhost:3000`
 
-3. **Import your repository**:
-   - Click "New Project"
-   - Select your GitHub repository (`search_aurora`)
-   - Vercel will auto-detect Next.js
-
-4. **Configure Environment Variables** (optional):
-   - Go to Project Settings → Environment Variables
-   - Add: `NEXT_PUBLIC_API_URL` = `https://search-aurora-backend.fly.dev`
-   - **Note**: If not set, it will automatically use the Fly.io backend URL
-
-5. **Deploy**:
-   - Click "Deploy"
-   - Vercel will build and deploy automatically
-   - Your site will be live at `https://your-project.vercel.app`
-
-6. **Your app is live!** 🎉
-
-The frontend will automatically connect to your Fly.io backend at `https://search-aurora-backend.fly.dev`.
-
-### Deploy Backend to Fly.io
-
-See backend deployment instructions in `backend/` directory or run:
-```bash
-cd backend
-fly deploy
-```
+4. **Start searching!**
+   - The frontend will automatically load data from the backend on startup
+   - Use the search bar to query messages
+   - Switch between "Term Frequency" and "Sentence Embedding" approaches
 
 ## Search Approaches
 
 1. **Term Frequency Token** (`term_frequency_token`) - Token-based search using term frequency
 2. **Sentence Embedding** (`sentence_embedding`) - Semantic search using sentence transformers and FAISS
 
+## Troubleshooting
+
+- **Backend not connecting?** Make sure the backend is running on `http://localhost:5000`
+- **CORS errors?** The backend has CORS enabled, so this shouldn't be an issue
+- **No search results?** Make sure the backend has loaded data (check backend console for "Successfully loaded X messages")
