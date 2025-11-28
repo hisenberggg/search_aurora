@@ -2,8 +2,6 @@
 
 A simple search engine with multiple search approaches.
 
-> **⚠️ Important Note:** If you are accessing the deployed frontend at [https://search-aurora.vercel.app/](https://search-aurora.vercel.app/), you need to run the backend server separately on your localhost. The deployed frontend will try to connect to `http://localhost:5000` by default, so make sure the backend is running locally before using the Vercel URL.
-
 ## Prerequisites
 
 - Python 3.12+ installed
@@ -52,7 +50,11 @@ Create a `.env.local` file if you want to customize the backend URL:
 NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
 
-**Note:** The frontend defaults to `http://localhost:5000` if no environment variable is set.
+**Note:** By default, the frontend connects to the deployed Render backend (`https://search-messages.onrender.com/`). 
+
+**To use a local backend instead:**
+
+- Edit `app/page.tsx` (lines 27-34) and change the default return URL from `https://search-messages.onrender.com/` to `http://localhost:5000`
 
 ## Local Development Workflow
 
