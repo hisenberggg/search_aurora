@@ -2,17 +2,19 @@
 
 A simple search engine with multiple search approaches.
 
-> **⚠️ Important:** Clone the repository and switch to the `local-setup` branch:
-> ```bash
-> git clone https://github.com/hisenberggg/search_aurora.git
-> cd search_aurora
-> git checkout local-setup
-> ```
+
 
 ## Prerequisites
 
 - Python 3.12+ installed
 - Node.js 18+ and npm installed
+
+> ** Clone the repository and switch to the `local-setup` branch:
+> ```bash
+> git clone https://github.com/hisenberggg/search_aurora.git
+> cd search_aurora
+> git checkout local-setup
+> ```
 
 ## Backend (Flask)
 
