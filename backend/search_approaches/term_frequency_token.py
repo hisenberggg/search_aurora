@@ -7,7 +7,6 @@ def tokenize(text: str) -> List[str]:
     """
     Tokenize text into lowercase words, removing punctuation
     """
-    # Convert to lowercase and split by non-word characters
     tokens = re.findall(r'\b\w+\b', text.lower())
     return tokens
 
@@ -50,7 +49,6 @@ def search(messages_data: List[Dict[str, Any]], query: str, page: int = 1, per_p
             'per_page': per_page
         }
     
-    # Score each message based on term frequency
     scored_messages = []
     
     for message in messages_data:
@@ -58,7 +56,6 @@ def search(messages_data: List[Dict[str, Any]], query: str, page: int = 1, per_p
         message_tokens = tokenize(message_text)
         message_tf = calculate_term_frequency(message_tokens)
         
-        # Calculate score: sum of term frequencies for query tokens
         score = 0
         matched_tokens = 0
         
@@ -67,22 +64,17 @@ def search(messages_data: List[Dict[str, Any]], query: str, page: int = 1, per_p
                 score += message_tf[token]
                 matched_tokens += 1
         
-        # Only include messages that have at least one matching token
         if matched_tokens > 0:
-            # Normalize score by query length and add bonus for more matched tokens
             normalized_score = score / len(query_tokens) * (matched_tokens / len(query_tokens))
             scored_messages.append((normalized_score, message))
     
-    # Sort by score (descending)
     scored_messages.sort(key=lambda x: x[0], reverse=True)
     
-    # Pagination
     total = len(scored_messages)
     start = (page - 1) * per_page
     end = start + per_page
     paginated_results = scored_messages[start:end]
     
-    # Return messages without scores
     items = [msg for _, msg in paginated_results]
     
     return {

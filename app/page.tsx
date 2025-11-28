@@ -24,9 +24,6 @@ interface SearchResponse {
   processing_time_ms?: number
 }
 
-// Use environment variable for API URL
-// For local development: Set NEXT_PUBLIC_API_URL=http://localhost:5000 in .env.local
-// For production (Vercel): Set NEXT_PUBLIC_API_URL=https://search-aurora-backend.fly.dev or it defaults to Fly.io
 const getApiUrl = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
     return process.env.NEXT_PUBLIC_API_URL
@@ -46,7 +43,6 @@ export default function Home() {
   const [dataLoading, setDataLoading] = useState(true)
   const [queryTime, setQueryTime] = useState<number | null>(null)
 
-  // Load data on startup (silently)
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -91,7 +87,6 @@ export default function Home() {
 
       const data = await response.json()
       
-      // Use backend processing time if available, otherwise use client-side timing
       const executionTime = data.processing_time_ms || Math.round(performance.now() - startTime)
       
       setResults(data)

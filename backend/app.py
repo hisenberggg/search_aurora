@@ -7,9 +7,8 @@ from search_approaches.term_frequency_token import search as search_term_frequen
 from search_approaches.sentence_embedding import search as search_sentence_embedding
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
-# In-memory storage for messages
 messages_data: List[Dict[str, Any]] = []
 MESSAGES_API_URL = "https://november7-730026606190.europe-west1.run.app/messages"
 
@@ -22,7 +21,7 @@ def load_data_from_api():
     messages_data = []
     
     skip = 0
-    limit = 3349  # Fetch in batches
+    limit = 3349
     
     while True:
         try:
@@ -40,7 +39,6 @@ def load_data_from_api():
             
             messages_data.extend(items)
             
-            # Check if we've fetched all messages
             total = data.get('total', 0)
             if len(messages_data) >= total:
                 break
@@ -98,10 +96,8 @@ def search():
     if per_page < 1 or per_page > 100:
         per_page = 10
     
-    # Measure backend processing time
     start_time = time.time()
     
-    # Route to appropriate search approach
     if approach == 'term_frequency_token':
         results = search_term_frequency_token(messages_data, query, page, per_page)
     elif approach == 'sentence_embedding':
@@ -112,7 +108,6 @@ def search():
             'message': f'Unknown approach: {approach}. Available approaches: term_frequency_token, sentence_embedding'
         }), 400
     
-    # Calculate processing time in milliseconds
     processing_time_ms = int((time.time() - start_time) * 1000)
     
     return jsonify({
@@ -124,8 +119,6 @@ def search():
     }), 200
 
 
-# Load data on startup (runs when module is imported, before workers fork)
-# This works with gunicorn --preload flag
 print("Initializing app... Loading data on startup...")
 result, success = load_data_from_api()
 if success:
