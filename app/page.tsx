@@ -120,15 +120,19 @@ export default function Home() {
   }
 
   return (
-    <main style={{ minHeight: '100vh', padding: '40px 20px' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <main style={{ 
+      minHeight: '100vh', 
+      padding: 'clamp(20px, 5vw, 40px) clamp(16px, 4vw, 20px)'
+    }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
         <h1 style={{ 
           textAlign: 'center', 
-          fontSize: '48px', 
+          fontSize: 'clamp(32px, 8vw, 48px)', 
           fontWeight: '300',
           color: '#696FC7',
-          marginBottom: '40px',
-          letterSpacing: '-1px'
+          marginBottom: 'clamp(24px, 6vw, 40px)',
+          letterSpacing: '-1px',
+          padding: '0 16px'
         }}>
           Search Messages
         </h1>
