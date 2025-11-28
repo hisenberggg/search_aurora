@@ -1,0 +1,44 @@
+# Frontend files
+app/
+components/
+node_modules/
+.next/
+out/
+package.json
+package-lock.json
+tsconfig.json
+next.config.js
+next-env.d.ts
+vercel.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Test files
+test.py
+
+# Documentation
+README.md
+
