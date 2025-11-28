@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 import time
+import os
 from typing import List, Dict, Any
 from search_approaches.term_frequency_token import search as search_term_frequency_token
 from search_approaches.sentence_embedding import search as search_sentence_embedding
@@ -119,14 +120,14 @@ def search():
     }), 200
 
 
-print("Initializing app... Loading data on startup...")
-result, success = load_data_from_api()
-if success:
-    print(f"✓ Successfully loaded {len(messages_data)} messages on startup")
-else:
-    print(f"✗ Failed to load data on startup: {result}")
-
-
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    print("Initializing app... Loading data on startup...")
+    result, success = load_data_from_api()
+    if success:
+        print(f"✓ Successfully loaded {len(messages_data)} messages on startup")
+    else:
+        print(f"✗ Failed to load data on startup: {result}")
+    
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
 

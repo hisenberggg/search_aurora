@@ -28,8 +28,8 @@ const getApiUrl = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
     return process.env.NEXT_PUBLIC_API_URL
   }
-  // Default to Fly.io backend for production
-  return 'https://search-aurora-backend.fly.dev'
+  // Default to localhost for local development
+  return 'http://localhost:5000'
 }
 
 const API_BASE_URL = getApiUrl()
