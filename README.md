@@ -6,11 +6,13 @@ A simple search engine with multiple search approaches.
 
 ### Setup
 ```bash
+cd backend
 pip install -r requirements.txt
 ```
 
 ### Run
 ```bash
+cd backend
 python app.py
 ```
 
