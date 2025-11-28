@@ -120,6 +120,15 @@ def search():
     }), 200
 
 
+# Load data on module import (works with gunicorn --preload)
+print("Initializing app... Loading data on startup...")
+result, success = load_data_from_api()
+if success:
+    print(f"✓ Successfully loaded {len(messages_data)} messages on startup")
+else:
+    print(f"✗ Failed to load data on startup: {result}")
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
