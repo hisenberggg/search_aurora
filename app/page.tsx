@@ -29,6 +29,8 @@ const getApiUrl = () => {
     return process.env.NEXT_PUBLIC_API_URL
   }
   // Default to localhost for local development
+  // For production (Vercel), set NEXT_PUBLIC_API_URL to your Render backend URL
+  // Example: https://search-aurora-backend.onrender.com
   return 'http://localhost:5000'
 }
 
